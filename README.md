@@ -25,10 +25,52 @@ Git Bash :-
 
 ## Git Verison
 
-git --version. //git version 2.43.0
+`git --version`. //git version 2.43.0
 
-git config user.email "c-shubham.shinde@amagi.com"
-git config user.name git-shubham-shinde
+`git config user.email "c-shubham.shinde@amagi.com"`
+`git config user.name git-shubham-shinde`
 
-git config --global user.email "c-shubham.shinde@amagi.com"
-git config --global user.name git-shubham-shinde
+`git config --global user.email "c-shubham.shinde@amagi.com"`
+`git config --global user.name "shubham s"` //in quotes other wise it will skip the things after space
+
+Repository :-
+A Git "Repo" is a workspace which tracks and manages file within a folder. (each repo has it own histories and contents)
+Below command will log og commit of given repository
+`git log` //we can see commit hash(a long id) in log
+`git log --abbrev-commit` //for short commit hash
+`git log --oneline` // sort for --pretty=oneline --abbrev-commit //give short commit hash and first line of commit message of each
+
+To initialize any folder as new git repository it create a .git folder which store the commit histories.
+`git init`
+
+Current status of current git repository and its content
+`git status`
+
+**staging area** the changes.
+
+- most of the time untracked file are computer generated file which we don't want to commit.
+- If you created new file it will be untracked they don't belong to version control
+  remember :- if file A is tracked but you decide to untrack now when you go back to old commit/version git will not replace the untrack file with old tracked same file A.
+- Also if we have tracked file then we decide to add it to .gitignore git will still track it so we have to untrack it first
+  `git rm --cached filename`
+- To unStage a file
+  `git restore --stage filename`
+
+**working directory -> `git add` -> staging area -> `git commit` -> repository**
+`git add .` //add all the files
+`git add filename`
+`git add filename1 filename2`
+
+**commit**
+
+- **Atomic commit** single feature,change, or fix.(keeping each commit focused on a single thing)
+- for git message use present-tense imperative style
+- commit is kinda checkpoint in git repository.
+- git commit will commit changes to the repository from staging area
+  `git commit` //will open vim or text editor to input message //To configure to use vs code instead of vim for longer message //https://git-scm.com/book/en/v2/Appendix-C%3A-Git-Commands-Setup-and-Config
+  `git commit -m "my message"`
+  `git commit -m "message" -m "description"`
+
+**Amending Commits**
+
+- to roll back commit
