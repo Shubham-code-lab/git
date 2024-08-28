@@ -87,14 +87,17 @@ Current status of current git repository and its content
 - branch is reference to some commit
   `git branch` //show all branch and active branch has \* as prefix
   `git branch branchName` //create new branch from current reference/Head but doesn't switch head to that new branch.
+  `git switch -c branchName` //-c = create new branch and switch to it
 - (HEAD -> main, origin/main, origin/HEAD, test-branch) head is point to "main", "test-branch" even when we don't point to
 - if we switch to new branch and commit something
 - commit cc890223f4ad01b091562cd482e46e2224706250 (HEAD -> test-branch) //head pointing to test-branch
 - commit 3e5592d230da63bb2466291cc6bd624b7d65a969 (origin/main, origin/HEAD, main) //main is still point to latest commit on it branch
-  `git log`  
+  `git log`
+- if we have unstage changes before switching we have to commit or stash then we will be able to switch
+- untrack file will let you switch and that file will still present in the branch you switch to
   `git switch branchName` //it is new command //head will point to test-branch now
-- `git checkout branchName` //checkout to new branch
-- `git checkout -b branchName` //create new branch and switch to new branch
+  `git checkout branchName` //switch to the branchName
+- `git checkout -b branchName` //create new branch and switch and make head point to it
 
 **head**
 
