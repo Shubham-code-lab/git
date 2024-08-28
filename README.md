@@ -73,4 +73,11 @@ Current status of current git repository and its content
 
 **Amending Commits**
 
-- to roll back commit
+- to roll back and commit again
+- before doing so first modify file that you want and add file to staging area\
+- `git commit --amend` //opens text editor for commit message of previous commit
+
+**ignoring file**
+
+- Secrets, API keys, credentials, etc. OS files (.DS_Store on Mac), Log files, Dependencies & packages.
+- `node_modules/` the forward slash tell it is directory and not file
