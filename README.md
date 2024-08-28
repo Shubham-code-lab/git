@@ -86,6 +86,7 @@ Current status of current git repository and its content
 - Github use main and git use master as default branch name
 - branch is reference to some commit
   `git branch` //show all branch and active branch has \* as prefix
+  `git branch -v` //show all branches with additional details (active branch, head, latest commit)
   `git branch branchName` //create new branch from current reference/Head but doesn't switch head to that new branch.
   `git switch -c branchName` //-c = create new branch and switch to it
 - (HEAD -> main, origin/main, origin/HEAD, test-branch) head is point to "main", "test-branch" even when we don't point to
@@ -99,11 +100,31 @@ Current status of current git repository and its content
   `git checkout branchName` //switch to the branchName
 - `git checkout -b branchName` //create new branch and switch and make head point to it
 
+**deleting branch**
+
+- `git branch -d branchName` //we can't delete if we are on that branch //the branch has some commit message we have to merge it first
+- `git branch -D branchName` //we can't delete if we are on that branch
+
+**renaming branch**
+
+- `git branch -m newBranchName` // -m --move move/rename //we have to be on that branch to rename it
+
 **head**
 
 - HEAD is a pointer/reference that refers to the current "locations" (branch pointer) in repository.
+- It points to a particular branch reference.
+- `cat .git\HEAD` //ref: refs/heads/main //navigate to this folder in .git then main file will contain the hash code for it latest commit as mention in`git log` to which head point.
 
 **ignoring file**
 
 - Secrets, API keys, credentials, etc. OS files (.DS_Store on Mac), Log files, Dependencies & packages.
 - `node_modules/` the forward slash tell it is directory and not file
+
+**merging**
+
+- allow use to incorporate changes from one branch into another.
+- we merge to the current HEAD branch
+  `git merge branchName` // merge branchName into current branch that we are on
+- fast forward merge :- case of merge where we diverge to new branch and made some commit to that new branch then when we merge it to master(no further commit after divergence) then master will catch up to that new branch.
+- if there are conflict git will create a merge commit(this commit has two parent) after we resolve the conflict.
+- if you resolve it manually and git didn't create merge commit then you can add file and commit manually saying resolving conflict.
