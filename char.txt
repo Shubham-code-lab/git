@@ -1,4 +1,4 @@
 Hii
 hlo
 close issue #1
-clase issue #2
+clase issue close #2
