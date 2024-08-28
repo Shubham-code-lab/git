@@ -62,14 +62,16 @@ Current status of current git repository and its content
 `git add filename1 filename2`
 
 **commit**
-
+- each commit will have reference to parent hash code (SHA 1 algorithm)
 - **Atomic commit** single feature,change, or fix.(keeping each commit focused on a single thing)
 - for git message use present-tense imperative style
 - commit is kinda checkpoint in git repository.
 - git commit will commit changes to the repository from staging area
   `git commit` //will open vim or text editor to input message //To configure to use vs code instead of vim for longer message //https://git-scm.com/book/en/v2/Appendix-C%3A-Git-Commands-Setup-and-Config
   `git commit -m "my message"`
+  `git commit -a -m "message"`   //stage all and commit with message
   `git commit -m "message" -m "description"`
+
 
 **Amending Commits**
 
@@ -77,7 +79,26 @@ Current status of current git repository and its content
 - before doing so first modify file that you want and add file to staging area\
 - `git commit --amend` //opens text editor for commit message of previous commit
 
+**branches**
+- branches allow us to create alternate timeline, separate context
+- many people treat master branch is "source of truth" or "official branch"
+- Github use main and git use master as default branch name
+- branch is reference to some commit
+`git branch`   //show all branch and active branch has * as prefix
+`git branch branchName`  //create new branch from current reference/Head but doesn't switch head to it.
+- (HEAD -> main, origin/main, origin/HEAD, test-branch)      head is point to "main", "test-branch" even when we don't point to 
+- if we switch to new branch and commit something 
+- commit cc890223f4ad01b091562cd482e46e2224706250 (HEAD -> test-branch)       //head pointing to test-branch
+- commit 3e5592d230da63bb2466291cc6bd624b7d65a969 (origin/main, origin/HEAD, main)    //main is still point to latest commit on it branch
+`git log`  
+`git switch branchName`  //head will point to test-branch now 
+
+**head**
+- HEAD is a pointer/reference that refers to the current "locations" (branch pointer) in repository.
+
 **ignoring file**
 
 - Secrets, API keys, credentials, etc. OS files (.DS_Store on Mac), Log files, Dependencies & packages.
 - `node_modules/` the forward slash tell it is directory and not file
+
+
