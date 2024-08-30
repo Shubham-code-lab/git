@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 
 Three
@@ -20,3 +21,9 @@ four
 five
 six
 Twenty
+=======
+Hii
+hlo
+close issue #1
+clase issue close #2
+>>>>>>> c08465873fa1112c567c464e9bca482f78c39030
