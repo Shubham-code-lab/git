@@ -128,3 +128,90 @@ Current status of current git repository and its content
 - fast forward merge :- case of merge where we diverge to new branch and made some commit to that new branch then when we merge it to master(no further commit after divergence) then master will catch up to that new branch.
 - if there are conflict git will create a merge commit(this commit has two parent) after we resolve the conflict.
 - if you resolve it manually and git didn't create merge commit then you can add file and commit manually saying resolving conflict.
+
+**Diff**
+
+- safe and informative command
+- without other options it lists all the changes between working directory and staging area. but when we add all file staging area then there is not difference left.
+- git diff command to view changes between commits, branches, files, our working directory, amd more.
+- we also combine it with git status and git log to better picture of a repository and how it changed over time.
+- `git diff` //show changes from unstaged and tracked file from working directory and compare with staging file.
+
+```
+diff --git a/char.txt b/char.txt       //for each comparison git explain which two file it is comparing.(two version of same file A, B)
+index 2444340..3747bcf 100644          //metadata :- hash code of two file being compare
+--- a/char.txt                         //"-" sign for file "a"
++++ b/char.txt                         //"+" sign for file "b"
+@@ -1,7 +1,8 @@                        //chuck head
+-One
+-Two
++
++
+ Three
+ Four
++two
+ Five
+ Six
+ Seven
+@@ -14,7 +15,8 @@ Thirteen               //chuck head
+ Fourteen
+ Fifteen
+ Sixteen
+-Seventeen
+-Eighteen
+ Nineteen
++four
++five
++six
+ Twenty
+```
+
+- comparing file in different point in time (we can set it if we want)
+- big file only small chuck is show which is affected
+- line start with - represent change coming from file 'A' (staging area)
+- line start with + represent change coming from file 'B' (working directory)
+- @@ -14,7 +15,8 @@
+- -14,7 = 7 line are coming from file A(-) starting from line number 14 (line that are affected / or shown)
+- +15,8 = 8 line are coming from file B(+) starting from line number 15 (line that are affected / or shown)
+
+2]
+`git diff HEAD`
+
+- lists all changes in the working tree since your last commit (or head).
+- (compare last commit with working directory) OR
+- (compare last commit with staged and unstaged changes)
+- ---/dev/null ('-' sign file is null)= good for untracked file as when we add it stage `git diff` will show nothing but `git diff head` will show it.
+
+3]
+`git diff --staged` OR `git diff --cached`
+
+- list the changes between the staging area and our last commit.
+- (compare last commit with staged changes)
+
+4]
+`git diff HEAD filename.extension`
+
+`git diff HEAD folder/filename.extension`
+
+`git diff HEAD folder/filename.extension file2name.txt` //two file changes
+
+- narrow down to see changes from the specific file
+
+5]
+`git diff branch1..branch2` //order matter
+`git diff branch1 branch2`
+
+- will list the changes between the tips of branch1 and branch2
+
+6]
+`git diff commitHash1..commitHash2`
+
+`git diff commitHash1 commitHash2`
+
+- you can copy the commit hash from `git log --oneline`
+
+**stash**
+
+- while switching :-
+- untracked file change will come along with you
+- tracked file change git will not allow us to switch
