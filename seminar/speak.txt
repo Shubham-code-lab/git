@@ -1,0 +1,46 @@
+
+1] version control is software that tracks and manage changes to files over time. 
+
+2] Git, Subversion, CSV, and mercurial, etc.
+
+https://survey.stackoverflow.co/2018
+https://survey.stackoverflow.co/2022
+
+
+
+Git useCase :-
+1] Track changes across multiple files.
+2] Compare versions of a project.
+3] Time travel back to old versions.
+4] Revert to a previous version.
+5] Collaborate and share changes.
+6] Combine changes.
+
+
+
+now what does that means for any tech company more then one developer working on single project and they can make changes to more than 100 
+of files one day to day basis and keeping track of those changes overtime, combining them or to undo certain changes.
+
+
+back in the day when linux torvalds and his team was working on development of linux kernel revoked/cancel there license. which led creation 
+of mercurial another version control system. but it lack some feature hence torvalds along with his team decided to create his an another 
+version control system that is free and open source.
+
+who uses git :- //mentioned on the home page of git
+https://git-scm.com/
+
+apart from these tech giant, git is being used people working in these field
+- non tech guys  //track the progress of project //
+- Government to manage laws    //https://government.github.com/community/
+- scientist
+- writers
+
+Git and Github :-
+1] Git run locally on the machine (no account and internet required).
+2] Github is a service that hosts repositories in the cloud and makes it easier to collaborate with other people (account and internet is required).
+
+
+
+
+
+  

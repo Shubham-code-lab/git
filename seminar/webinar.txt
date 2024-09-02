@@ -1,0 +1,77 @@
+hello guys this is your truly shubham shinde.
+
+why git stash ?
+1] to switch to new branch without commiting the half code.
+2] to visualize changes in vs code without commiting
+
+full form of each command
+
+peak at commit
+
+ versioned word
+
+
+when we commit :-
+working directory is clean
+repository is up to date
+we have committed the changes, creating new version
+changes have been tracked and committed
+new commit added to repository
+new version of repository
+
+if we try to create branch that is already present :-
+PS D:\Git\Git code\git> git checkout -b branch-test-1
+fatal: a branch named 'branch-test-1' already exists
+
+amagi squall entire week commit and merge to master
+
+
+- untrack file will let you switch and that file will still present in the branch you switch to
+
+- `cat .git\HEAD` //ref: refs/heads/main //navigate to this folder in .git then main file will contain the hash code for it latest commit as mention in`git log` to which head pointpoint
+
+
+- if there are conflict git will create a merge commit(this commit has two parent) after we resolve the conflict.
+
+not to initialize another repo in a repo so before git init run git status.
+
+staging area(all staged file are present) 
+working director (folder/director that contain our project)   // also file that are not staged or committed
+staged(file is staged ready to commit)   
+working tree :- Refers to the state of all your files (including untracked, modified, staged, and committed files) and the active branch.
+Working Directory(all the files[unchanged and changed]) == Unstaged Changes  (only changed part from working director)
+
+
+**stash**
+
+- while switching :-
+- untracked file change will come along with you (also tracked file but no conflict will let you switch)
+- tracked file conflict change are there git will not allow us to switch
+
+
+
+index == staging area
+
+
+- Usually, head points to a specific branch reference rather than a particular commit.
+
+
+  `git commit -a -m "message"` //stage all and commit with message    //not add untracked file
+
+
+  what if you commit when head is ditached
+
+  
+- `git restore --source HEAD~1 fileName.txt` //to change default source HEAD we can use --source option
+
+
+what if we rest commit from the point we also create branch
+
+
+- `git remote add <name> <url>` //remember the (url) using the (name) (most of the time name is always 'origin' it is standard name for remote) whenever we say 'origin' it refer to URL
+- `git remote add origin https://github.com/Shubham-code-lab/del-later.git` //origin is kinda key to url. //open source project can have multiple remotes
+
+
+- `git push origin master:main` //push local master branch changes to remote main branch.   //what about mege coflict
+
+git log will only show the required history for current branch in use
