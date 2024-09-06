@@ -70,7 +70,8 @@ Current status of current git repository and its content
 - git commit will commit changes to the repository from staging area
   `git commit` //will open vim or text editor to input message //To configure to use vs code instead of vim for longer message //https://git-scm.com/book/en/v2/Appendix-C%3A-Git-Commands-Setup-and-Config
   `git commit -m "my message"`
-  `git commit -a -m "message"` //stage all and commit with message
+  `git commit -a -m "message"` //stage all and commit with message //not add untracked file
+  `git commit -am "message"`
   `git commit -m "message" -m "description"`
 
 **Amending Commits**
@@ -108,6 +109,7 @@ Current status of current git repository and its content
 **renaming branch**
 
 - `git branch -m newBranchName` // -m --move move/rename //we have to be on that branch to rename it
+- `git branch -m oldBranchName newBranchName` //we don't have to be on that branch
 
 **head**
 
@@ -128,6 +130,18 @@ Current status of current git repository and its content
 - fast forward merge :- case of merge where we diverge to new branch and made some commit to that new branch then when we merge it to master(no further commit after divergence) then master will catch up to that new branch.
 - if there are conflict git will create a merge commit(this commit has two parent) after we resolve the conflict.
 - if you resolve it manually and git didn't create merge commit then you can add file and commit manually saying resolving conflict.
+
+
+**merging**
+
+- allow use to incorporate changes from one branch into another.
+- we merge to the current HEAD branch
+  `git merge branchName` // merge branchName into current branch that we are on
+- fast forward merge :- case of merge where we diverge to new branch and made some commit to that new branch then when we merge it to master(no further commit after divergence) then master will catch up to that new branch.
+- if there are conflict git will create a merge commit(this commit has two parent) after we resolve the conflict.
+- if you resolve it manually and git didn't create merge commit then you can add file and commit manually saying resolving conflict.
+- any merge commit has two parent
+
 
 **Diff**
 
@@ -177,7 +191,7 @@ index 2444340..3747bcf 100644          //metadata :- hash code of two file being
 2]
 `git diff HEAD`
 
-- lists all changes in the working tree since your last commit (or head).
+- lists all changes in the working tree & staging area since your last commit (or head).
 - (compare last commit with working directory) OR
 - (compare last commit with staged and unstaged changes)
 - ---/dev/null ('-' sign file is null)= good for untracked file as when we add it stage `git diff` will show nothing but `git diff head` will show it.
@@ -210,8 +224,177 @@ index 2444340..3747bcf 100644          //metadata :- hash code of two file being
 
 - you can copy the commit hash from `git log --oneline`
 
+
 **stash**
 
 - while switching :-
 - untracked file change will come along with you
 - tracked file change git will not allow us to switch
+
+- avoid unnecessary commit or pollute commit history.
+- stash changes and come back later. running `git stash` will take unstaged and staged file (not untracked files) and stash them
+- while switching :-
+- untracked file change will come along with you (also tracked file but no conflict will let you switch)
+- tracked file conflict change are there git will not allow us to switch
+- we can stash and pop mutiple times just like stack FILO.
+- `git stash` sorter version of OR `git stash save`
+- when apply or pop we can get merge conflict
+- `git stash push -m "message"`
+- `git stash pop` recently stashed changes and apply to working directory and remove it from stash list
+- `git stash apply` recently stashed changes and apply to working directory and don't remvoe it from the stash list
+- `git stash list` to see list of stashed changes
+- `git stash apply stash@{1}` apply specify stash using stash ID
+- `git stash drop stash@{2}` to remove the stash using stash ID
+- `git stash clear` to empty entire stash
+
+**Undoing changes and Time Traveling**
+
+- Usually, head points to a specific branch reference rather than a particular commit.
+- when checkout to particular commit, HEAD points at that commit rather than at the branch pointer.
+- "detached head state" thing we can do 1] copy old version of file, 2] create new branch from that point, 3] come back to branch  
+  `git checkout <commitHash>` //"detached head state" //change should be committed before switching
+  `git checkout branchName` OR `git switch branchName` //to switch back to the branch
+
+- referring to previous commit relative to particular commit.
+- HEAD~1 refers to the commit before HEAD (parent).
+- HEAD~2 refers to 2 commits before HEAD (grandparent).
+- `git checkout HEAD~3` //will not ditach head i think //one point before head //we can use mutiple time (i.e :- n=3) to go one commit back at time from current head position
+
+- `git switch -` //if you detach head like this just once `git checkout <commitHash>` then we can use this command to go back to the previous branch
+
+- `git checkout HEAD fileName.txt` //discard changes of fileName.txt from working directory and staged area and restore by last committed file version
+- `git checkout HEAD fileName.txt fileName2.ts` //we can specify multiple files
+- `git checkout -- fileName.txt` //same as `git checkout HEAD fileName.txt` restore to head position
+- Working Directory :-
+
+- `git restore fileName.txt` //if file is from working directory(not staged) discard changes and restore by last committed file version
+- Staging area
+- `git restore --staged fileName.txt` //file will be just unstaged
+
+- `git restore --source HEAD~5 fileName.txt` //IMPORTANT //to change default source HEAD we can use --source option //restore file to old version of it //note working directory change will lost if not committed //`git restore fileName.txt` to change file version to latest one which is HEAD
+- `git restore --source HEAD~5 fileName1.txt fileName2.txt`
+
+- Git Reset :- To undo the commits.
+- reset the repo back to a specific commit.
+- moves the branch pointer backwards, eliminating commits.
+- `git reset <commitHash>` // remove all the commits did after the given commit hash i the remove commits change will be shown in working directory as unstaged
+- `git reset --hard <commitHash>` // remove all the commits did after the given commit hash i the remove commits change will be also removed
+- `git reset --hard HEAD~1`
+
+- Git revert :-
+- it create brand new commit which reverse/undos the changes from a commit. Because it result in a new commit, you will be prompted to enter a message
+- reverse commit that other people already have on there machines, without altering commit history.
+- `git revert <commitHash>` //doesn't remove the given commit and preciding commit //instead it will get all the commit happen after and current given hash code and show it in working directory //and also create a revert commit for us which we can procced after fixing code and resolving merge conflict.
+
+- revertB branch was created from commit 6 so even when we deleted old commit starting from commit 3 that branch was not affected
+
+```
+4f626b2 (HEAD -> main) reset upto 3
+cdc7eab commit 3
+a01f936 commit 2
+60d9622 commit 1
+3af487b updated
+```
+
+```
+d623523 (HEAD -> revertB) Revert "commit 3"
+5d897d2 updated 10 37 56 67 89
+509c50e updated 1 3 56 4 67
+5976aad commit 6
+1c28e19 commit 5
+e4c75a4 commit 4
+cdc7eab commit 3
+a01f936 commit 2
+60d9622 commit 1
+```
+
+**rebasing**
+- alternative to merging
+- cleaning up tool
+- re-write history by creating new commit which can be problematic.
+- each commit has time and date, rebasing will only move around commits regardless of time and date.
+- your feature will get lot of merge commits (which are unrelated to feature that you are working on) while merging other developer changes into it (cluttered history).
+- re-write commit for each of the feature branch commit.
+- every commit has single parent (except for first commit of repo).
+- `git rebase <mainbranch>` //we are on feature branch it will re-write commit new history of current branch and we have to resolve merge conflict
+- if feature branch has more commit all those commit will be re-written/re-done when we just have single commit on master that we want in feature.
+- never rebase commit that we share with other as after rebasing both commit history will be different (reconcile)
+- `git rebase --continue` //resolve conflict on each commit continue doing this 
+
+
+//checkout to new branch make change in each file for each commit then checkout to main and commit change to all file in sindle or muitple commit then checkout to feature branch and rebase main then resolve merge conflict in each but use continue command.
+
+
+**squashing**
+- Combining multiple commits into one single commit
+- to keep history clean (by losing some commits)
+- to get reid of messy commit history
+- `git rebase -i HEAD~4`
+- (commitHash) of one point before the commits that we want to squash
+- `git rebase -i <commitHash>`   // -i "interactive rebase mode" :- where we can squash commit , reword commit messages, add files, drop commits,etc
+- less flexible using merge
+- `git merge --squash branchName` // all commit from branch is  added to current branch which can be seen in working directory which git expect us to commit
+
+
+
+GitHub :-
+
+- Github is a hosting platform for git repositories. You can put your own Git repos on Github and access them from anywhere and share them with people around the world.
+- Beyond hosting repos, Github also provides additional collaboration features that are not native to Git (but are super useful). Basically, Github helps people share and collaborate on repos.
+- the world's largest host of source code.
+- home to the code in cloud
+- code backup, collaboration
+- open source projects
+
+**cloning**
+
+- get local copy of an existing repository
+- `git clone <URL>` //setup up file and folder //set commit history //setup remote
+
+- Exiting local repo on machine
+  1] Create a new repo Github.
+  2] Connect your local repo (add a remote).
+  3] Push up your changes to Github.
+  -steps :-
+- create empty repsoitory on github
+
+- set up destination remote repository of the github to push up to.
+- `git remote -v` //
+- `git remote add <name> <url>` //remember the (url) using the (name) (most of the time name is always 'origin' it is standard name for remote) whenever we say 'origin' it refer to URL
+- `git remote add origin https://github.com/Shubham-code-lab/del-later.git` //origin is kinda key to url. //open source project can have multiple remotes
+- `git remote rename <oldName> <newName>`
+- `git remote remove <name>`
+
+- to not push all branch to github we specify just one branch
+- `git push <remote> <branch>` // git push origin main
+- `git push origin master` //this will push local branch to remote branch if branch doesn't exist it create new branch master on remote github if it doesn't exist //so, rename local branch if it was master to main if want our branch name as main
+- `git push origin master:main` //push local master branch changes to remote main branch.
+- upstream option :-
+- -u allow use to set upstream of the branch (link local branch with remote branch)
+- `git push -u origin main` //local machine main branch is connected to remote main branch so next time we can just so `git push`
+- `git push -u origin master:main` //local machine master branch is connected to remote main branch so next time we can just so `git push`
+
+- new repository fom Github
+  1] Create a brand new repo on Github
+  2] Clone it down to your machine
+  3] Do some work locally
+  4] Push up your changes to Github
+
+**Fetching & Pull**
+
+- when we clone repository we have two branch reference pointing to same commit "master" and "origin/master"
+- "master" regular branch reference
+- "origin/master" remote tracking branch reference to the state of master on the remote.(last commit on master branch on origin). most recently know state of the master branch on the remote
+- `git branch -r` //gives list of remote tracking branch //
+- `git checkout origin/main` //detached head we can create new branch from here if we want
+- `git push origin main`
+
+- `git clone <URL>` //git will connect local machine default branch with remote default branch (same name of remote)
+- `git checkout remoteBranchName` OR `git switch remoteBranchName ` //git will connect local machine default branch with remote default branch (same name of remote)
+
+- `git fetch origin` //default is "origin" so no need to write it //download code from remote repository and update the local repository //but not integrated in working directory
+- `git fetch origin branchName` //we can also only fetch one branch //only remote tracking origin/branchName will update
+- `git checkout origin/branchName` //we can see the changes here but not on "branchName" can also `git log`
+- `git pull origin branchName` // `fetch`update remote tracking branch and `merge`update current branch with remote tracking branch
+- `git pull` //as git switch config the tracking // git assume remote is origin and branch will be the tracking config of current branch
+
