@@ -1,0 +1,112 @@
+whenever we pull any remote repository git will sets up a remote named "origin" in local machine that is alias to the "main remote repository" 
+
+commit you local changes before pulling anything from the remote
+
+# Set the pull.rebase configuration option to false in the local Git repository.
+# This command configures Git to use the merge strategy instead of rebase when pulling changes.
+# Pulling with rebase is a way to incorporate upstream changes while maintaining a cleaner commit history.
+# By setting pull.rebase to false, the default pull behavior will be a merge.
+git config pull.rebase false
+
+# Remove a file from the staging area (index) while keeping it in the working directory.
+# When changes are made to files in a Git repository, they are first staged before committing.
+# This command 'git rm --cached' unstages the specified file(s), meaning they won't be included in the next commit,
+# but the file(s) will remain in the working directory.
+# In this example, '../../.DS_Store' is the path to the file to be removed from the staging area.
+# This is useful when you want to undo a previous 'git add' operation before committing.
+git rm --cached ../../.DS_Store
+
+# Display the URLs of the remote repositories associated with the current repository.
+git remote -v
+
+# Display the configured user name for the current repository.
+git config user.name
+
+# Display the configured user email for the current repository.
+git config user.email
+
+# Set the global user name configuration for Git.
+git config --global user.name "FIRST_NAME LAST_NAME"
+
+# Set the global user email configuration for Git.
+git config --global user.email "MY_NAME@example.com"
+
+#local setting
+git config --local user.name "Shubham-code-lab" --add && git config --local user.email "shubhamshinde281999@gamil.com"
+
+# Merge changes from the 'rootBranch' into the current branch.
+git merge rootBranch
+
+# Create a new stash but stage all the changes
+git stash save "my_stash_name"
+
+# to only stash the folder and child of these folder but if you create new file in this folder make sure to add it to staging area
+git stash push -m "Stashing changes from  src/app/recommendations/" --  src/app/recommendations/
+
+# stash changes except from specific folder
+git stash push -m "Stashing changes except src/app/recommendations/" -- $(git ls-files | grep -v "^src/app/recommendations/")
+
+# Display a list of stashes.
+git stash list
+
+# Apply changes from a specific stash to the working directory.
+git stash apply stash@{0}
+
+# Remove a specific stash from the stash list.
+git stash drop stash@{1}
+
+unCommit the last commit but changes are staged
+git reset --soft 'HEAD^'
+
+
+git merge --abort
+
+
+Creating and ADDing ssh key
+
+git config --global user.name "ShubhamShinde88"
+git config --global user.email "shubham@argoid.com"
+git config user.name 
+git config user.email
+ssh-keygen -t ed25519 -C "shubham@argoid.com"            //email that is going to commit to other email github account
+		Enter file in which to save the key (/Users/admin/.ssh/id_ed25519): /Users/admin/.ssh/test190            /Users/admin/.ssh/anyname //will created key and 
+		
+eval "$(ssh-agent -s)"
+ls -a ~/.ssh      //check key is created in that location
+
+open ~/.ssh/config
+	Host github.com
+	  AddKeysToAgent yes
+	  UseKeychain yes
+	  IdentityFile ~/.ssh/test190      //update the key here
+	
+ssh-add --apple-use-keychain ~/.ssh/test190
+pbcopy < ~/.ssh/test190.pub           //copy the key and add it to github
+
+
+
+
+
+GH 
+ls ~/.ssh
+ls -a ~/.ssh
+cat ~/.ssh/id_rsa.pub
+brew install gh
+gh auth login
+? What account do you want to log into? GitHub.com
+? What is your preferred protocol for Git operations on this host? SSH
+? Upload your SSH public key to your GitHub account? /Users/admin/.ssh/id_rsa.pub
+? Title for your SSH key: Mac Amagi SSH Key
+? How would you like to authenticate GitHub CLI? Login with a web browser
+
+
+gh auth status
+
+
+ find / -name hadoop-env.sh
+
+
+
+
+
+
